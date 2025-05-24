@@ -1,0 +1,86 @@
+name: kilyani_app
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  get: ^4.6.1
+  intl: ^0.17.0
+  http: ^1.0.0
+  cached_network_image: ^3.2.0 
+  shared_preferences: ^2.0.15
+  path: ^1.8.0
+  google_fonts: ^6.2.0
+  lottie: ^1.4.2
+  shimmer: ^3.0.0
+  flutter_screenutil: ^5.9.0
+  google_maps_flutter: ^2.5.3
+  geolocator: ^8.0.5
+  geocoding: ^2.1.1
+
+  image_picker: ^1.0.4
+  open_file: ^3.2.1
+  googleapis_auth: ^1.4.1 
+  flutter_cached_pdfview: ^0.4.2
+  expandable_text: ^2.3.0
+  firebase_core: ^2.18.0
+  firebase_messaging: ^14.7.0
+
+
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.2.16 
+
+flutter_native_splash:
+      color: "#EB5B00"  
+      image: android/assets/images/play_store_512.png
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "android/assets/images/play_store_512.png"
+  adaptive_icon_background: "#EB5B00"
+  adaptive_icon_foreground: "android/assets/images/play_store_512.png"
+  min_sdk_android: 21
+
+
+flutter:
+
+  uses-material-design: true
+
+ 
+  
+  assets:
+   - android/assets/
+   - android/assets/images/
+
+
+  fonts:
+  - family:          Cairo
+    fonts:
+     - asset:        android/assets/fonts/Cairo-VariableFont_wght.ttf
+
+  - family:          Almarai
+    fonts:
+     - asset:        android/assets/fonts/Almarai-Regular.ttf
+
+  - family:          Marhey
+    fonts:
+     - asset:        android/assets/fonts/Marhey-VariableFont_wght.ttf
+      
+   

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "268154239169",
+    "project_id": "kilyani-ccfc8",
+    "storage_bucket": "kilyani-ccfc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268154239169:android:13f217ce03ecfb16b37c40",
+        "android_client_info": {
+          "package_name": "com.example.kilyani_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3Gu4SN3baVTZydtkb9tWFb4YQSpQWIdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

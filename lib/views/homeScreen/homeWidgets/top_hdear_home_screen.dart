@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:kilyani_app/core/constant/images_path.dart';
+
+import '../../../controllers/home_controller.dart';
+import '../../../core/constant/app_text_styles.dart';
+import '../../../core/constant/appcolors.dart';
+
+class TopHeaderHomeScreen extends StatelessWidget {
+  const TopHeaderHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "الرئيسية",
+              style: TextStyle(
+                fontFamily: AppTextStyles.Almarai,
+                color: AppColors.blackColorTypeTeo,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 22.r,
+                        backgroundColor: AppColors.TheMain,
+                        child: Icon(Icons.person,
+                            color: Colors.white, size: 18.sp),
+                      ),
+                      SizedBox(width: 10.w),
+                      GetX<HomeController>(
+                        builder: (controller) => Text(
+                          controller.isNotHaveAccount.value
+                              ? "لايوجد حساب"
+                              : controller.users?.value.user_name.toString() ??
+                                  "لايوجد حساب",
+                          style: TextStyle(
+                            fontFamily: AppTextStyles.Almarai,
+                            color: AppColors.TheMain,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ])
+          ]),
+    );
+  }
+}
