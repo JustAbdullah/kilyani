@@ -21,541 +21,595 @@ class Sign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     HomeController homeController = Get.put(HomeController());
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Stack(
         children: [
           Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 00.w),
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: SizedBox(
-                            height: 150.h,
-                            child: Image.asset(
-                              ImagesPath.logo,
-                              fit: BoxFit.cover,
-                            ),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0.w),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // تحسين منطقة الشعار
+                      Container(
+                        height: 180.h,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              AppColors.whiteColor,
+                              AppColors.whiteColor,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(30.r),
+                            bottomRight: Radius.circular(30.r),
                           ),
                         ),
-                        SizedBox(
-                          height: 20.h,
+                        child: Center(
+                          child: Image.asset(
+                            ImagesPath.logo,
+                            height: 120.h,
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: TextCustom(
+                      ),
+                      
+                      SizedBox(height: 30.h),
+                      
+                      // تحسين منطقة النصوص الترحيبية
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextCustom(
                               fontWeight: FontWeight.bold,
-                              theText: "مرحبًا بك",
-                              fontSizeWidth: 17.sp,
+                              theText: "مرحبًا بك في منصة كليانى",
+                              fontSizeWidth: 19.sp,
                               fontFamily: AppTextStyles.Almarai,
                               fontColor: AppColors.TheMain,
-                            )),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Text(
-                              "عزيزي المستخدم,هذه صفحة إنشاء حساب جديد",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: AppTextStyles.Almarai,
-                                color: AppColors.balckColorTypeThree,
-                              ),
-                            )),
-                        SizedBox(
-                          height: 0.h,
-                        ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Text(
-                              "قم من فضلك بملاء البيانات التالية ",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: AppTextStyles.Almarai,
-                                color: AppColors.balckColorTypeThree,
-                              ),
-                            )),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                                child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: TextFormFiledCustom(
-                                    labelData: "اسم المستخدم".tr,
-                                    hintData: "لطفًا أدخل اسمك هنا".tr,
-                                    iconData: Icons.person,
-                                    controllerData:
-                                        homeController.nameInSingUPTextEdit,
-                                    value: (value) {
-                                      SystemChrome.setEnabledSystemUIMode(
-                                          SystemUiMode.manual,
-                                          overlays: []);
-                                      homeController.nameInSingUp =
-                                          value.toString();
-                                      return value;
-                                    },
-                                    fillColor:
-                                        Color.fromARGB(255, 244, 244, 244),
-                                    hintColor: AppColors.TheMain,
-                                    iconColor: AppColors.TheMain,
-                                    borderSideColor:
-                                        Color.fromARGB(255, 244, 244, 244),
-                                    fontColor: AppColors.TheMain,
-                                    obscureText: false,
-                                    keyboardType: TextInputType.name,
-                                    autofillHints: [AutofillHints.name],
-                                    onChanged: (value) {
-                                      SystemChrome.setEnabledSystemUIMode(
-                                          SystemUiMode.manual,
-                                          overlays: []);
-                                      homeController.nameInSingUp =
-                                          value.toString();
-                                      return value;
-                                    },
-                                    validator: (value) {},
-                                  ),
-                                ))),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                                child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: TextFormFiledCustom(
-                                    labelData: "كلمة المرور".tr,
-                                    hintData: "لطفًا أدخل كلمة المرور هنا".tr,
-                                    iconData: Icons.lock,
-                                    controllerData:
-                                        homeController.passwordInSingUPTextEdit,
-                                    value: (value) {
-                                      SystemChrome.setEnabledSystemUIMode(
-                                          SystemUiMode.manual,
-                                          overlays: []);
-                                      homeController.passwordInSing =
-                                          value.toString();
-                                      return value;
-                                    },
-                                    fillColor:
-                                        Color.fromARGB(255, 244, 244, 244),
-                                    hintColor: AppColors.TheMain,
-                                    iconColor: AppColors.TheMain,
-                                    borderSideColor:
-                                        Color.fromARGB(255, 244, 244, 244),
-                                    fontColor: AppColors.TheMain,
-                                    obscureText: true,
-                                    keyboardType: TextInputType.name,
-                                    autofillHints: [AutofillHints.name],
-                                    onChanged: (value) {
-                                      SystemChrome.setEnabledSystemUIMode(
-                                          SystemUiMode.manual,
-                                          overlays: []);
-                                      homeController.passwordInSing =
-                                          value.toString();
-                                      return value;
-                                    },
-                                    validator: (value) {},
-                                  ),
-                                ))),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                            ),
+                            SizedBox(height: 12.h),
                             Text(
-                              textAlign: TextAlign.center,
-                              "لديك حساب بالفعل؟",
+                              "عزيزي المستخدم، هذه صفحة إنشاء حساب جديد. قم من فضلك بملء البيانات التالية",
                               style: TextStyle(
+                                height: 1.5,
                                 fontSize: 15.sp,
                                 fontFamily: AppTextStyles.Almarai,
                                 color: AppColors.balckColorTypeThree,
                               ),
                             ),
-                            SizedBox(
-                              width: 1.w,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                homeController.clearLoginOrSignUp();
-                                Get.to(Login());
-                              },
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "قم بتسجيل الدخول الان",
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: AppTextStyles.Almarai,
-                                    color: Color.fromARGB(255, 255, 166, 0),
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
                           ],
                         ),
-                        SizedBox(
-                          height: 120.h,
+                      ),
+                      
+                      SizedBox(height: 40.h),
+                      
+                      // حقل اسم المستخدم
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.w),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF9F9F9),
+                            borderRadius: BorderRadius.circular(15.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 6,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: TextFormFiledCustom(
+                                labelData: "اسم المستخدم".tr,
+                                hintData: "لطفًا أدخل اسمك هنا".tr,
+                                iconData: Icons.person_outline_rounded,
+                                controllerData:
+                                    homeController.nameInSingUPTextEdit,
+                                value: (value) {
+                                  SystemChrome.setEnabledSystemUIMode(
+                                      SystemUiMode.manual,
+                                      overlays: []);
+                                  homeController.nameInSingUp = value.toString();
+                                  return value;
+                                },
+                                fillColor: Colors.transparent,
+                                hintColor: AppColors.balckColorTypeFour,
+                                iconColor: AppColors.TheMain,
+                                borderSideColor: Colors.transparent,
+                                fontColor: AppColors.balckColorTypeThree,
+                                obscureText: false,
+                                keyboardType: TextInputType.name,
+                                autofillHints: [AutofillHints.name],
+                                onChanged: (value) {
+                                  SystemChrome.setEnabledSystemUIMode(
+                                      SystemUiMode.manual,
+                                      overlays: []);
+                                  homeController.nameInSingUp = value.toString();
+                                  return value;
+                                },
+                                validator: (value) {},
+                              ),
+                            ),
+                          ),
                         ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 45.w),
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 10.h),
+                      ),
+                      
+                      SizedBox(height: 20.h),
+                      
+                      // حقل كلمة المرور مع زر الإظهار/الإخفاء
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.w),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF9F9F9),
+                            borderRadius: BorderRadius.circular(15.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 6,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: Obx(
+                                () => TextFormField(
+                                  controller:
+                                      homeController.passwordInSingUPTextEdit,
+                                  obscureText: !homeController.showPassword.value,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    labelText: "كلمة المرور".tr,
+                                    labelStyle: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: AppTextStyles.Almarai,
+                                      color: AppColors.balckColorTypeFour,
+                                    ),
+                                    hintText: "لطفًا أدخل كلمة المرور هنا".tr,
+                                    hintStyle: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontFamily: AppTextStyles.Almarai,
+                                      color: AppColors.balckColorTypeFour,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.lock_outline_rounded,
+                                      color: AppColors.TheMain,
+                                      size: 22.sp,
+                                    ),
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        homeController.showPassword.toggle();
+                                      },
+                                      child: Icon(
+                                        homeController.showPassword.value
+                                            ? Icons.visibility_rounded
+                                            : Icons.visibility_off_rounded,
+                                        color: AppColors.balckColorTypeFour,
+                                        size: 22.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontFamily: AppTextStyles.Almarai,
+                                    color: AppColors.balckColorTypeThree,
+                                  ),
+                                  onChanged: (value) {
+                                    homeController.passwordInSing = value;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      
+                      SizedBox(height: 25.h),
+                      
+                      // رابط تسجيل الدخول
+                      Center(
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "لديك حساب بالفعل؟ ",
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontFamily: AppTextStyles.Almarai,
+                                  color: AppColors.balckColorTypeThree,
+                                ),
+                              ),
+                              WidgetSpan(
+                                child: InkWell(
+                                  onTap: () {
+                                    homeController.clearLoginOrSignUp();
+                                    Get.to(Login());
+                                  },
+                                  child: Text(
+                                    "قم بتسجيل الدخول الان",
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontFamily: AppTextStyles.Almarai,
+                                      color: AppColors.TheMain,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      
+                      SizedBox(height: 40.h),
+                      
+                      // أزرار الإنشاء
+                      Column(
+                        children: [
+                          // زر إنشاء حساب عادي
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 40.w),
+                            child: Material(
+          borderRadius: BorderRadius.circular(12),
+                              elevation: 4,
                               child: InkWell(
                                 onTap: () {
                                   homeController.checkTheAccount(
                                       homeController.nameInSingUp,
                                       homeController.passwordInSing);
                                 },
+                                borderRadius: BorderRadius.circular(30.r),
                                 child: Container(
                                   alignment: Alignment.center,
-                                  width: 290.w,
-                                  height: 40.h,
+                                  width: double.infinity,
+                                  height: 48.h,
                                   decoration: BoxDecoration(
-                                    color: AppColors.blackColorTypeTeo,
-                                    borderRadius: BorderRadius.circular(30),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        AppColors.TheMain,
+                                        AppColors.TheMain,
+                                      ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+          borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
-                                    "الإنشاء الان",
+                                    "إنشاء حساب جديد",
                                     style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontFamily: AppTextStyles.Almarai,
-                                        color: AppColors.whiteColor,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 16.sp,
+                                      fontFamily: AppTextStyles.Almarai,
+                                      color: AppColors.whiteColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            )),
-                        Padding(
-                            padding: EdgeInsets.only(bottom: 10.h),
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 45.w),
-                                child: InkWell(
-                                  onTap: () {
-                                    Get.to(CreateNewAcccountBuseinss());
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: 290.w,
-                                    height: 40.h,
-                                    decoration: BoxDecoration(
+                            ),
+                          ),
+                          
+                          SizedBox(height: 15.h),
+                          
+                          // زر إنشاء حساب تجاري
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 40.w),
+                            child: Material(
+                              borderRadius: BorderRadius.circular(30.r),
+                              elevation: 4,
+                              child: InkWell(
+                                onTap: () {
+                                  Get.to(CreateNewAcccountBuseinss());
+                                },
+                                borderRadius: BorderRadius.circular(30.r),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: double.infinity,
+                                  height: 48.h,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(30.r),
+                                    border: Border.all(
                                       color: AppColors.TheMain,
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Text(
-                                      "طلب الإنضمام كمتجر خاص",
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontFamily: AppTextStyles.Almarai,
-                                          color: AppColors.whiteColor,
-                                          fontWeight: FontWeight.bold),
+                                      width: 1.5,
                                     ),
                                   ),
-                                ))),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "عند قيامك بإنشاء حساب فإنك توافق ",
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontFamily: AppTextStyles.Almarai,
-                                    color: AppColors.balckColorTypeThree,
+                                  child: Text(
+                                    "طلب الإنضمام كمتجر خاص",
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: AppTextStyles.Almarai,
+                                      color: AppColors.TheMain,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ],
-                            )),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30.w),
-                            child: InkWell(
-                                onTap: () {
-                                  homeController.terms.value = true;
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "على شروط واحكام",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontFamily: AppTextStyles.Almarai,
-                                        color: AppColors.balckColorTypeThree,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    Text(
-                                      "منصة كليانى",
-                                      style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontFamily: AppTextStyles.Almarai,
-                                          color: AppColors.TheMain,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ))),
-                      ],
-                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                      SizedBox(height: 30.h),
+                      
+                      // شروط وأحكام
+                     Center(
+  child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        "عند قيامك بإنشاء حساب فإنك توافق على",
+        style: TextStyle(
+          fontSize: 13.sp,
+          fontFamily: AppTextStyles.Almarai,
+          color: AppColors.balckColorTypeThree,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      SizedBox(height: 4.h), // مسافة صغيرة بين السطرين
+      InkWell(
+        onTap: () {
+          homeController.terms.value = true;
+        },
+        child: Text(
+          "شروط وأحكام منصة كليانى",
+          style: TextStyle(
+            fontSize: 13.sp,
+            fontFamily: AppTextStyles.Almarai,
+            color: AppColors.TheMain,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ],
+  ),
+),
+                      
+                      SizedBox(height: 30.h),
+                    ],
                   ),
                 ),
-              )),
+              ),
+            ),
+          ),
+          
+          // باقي المكونات (بدون تغيير)
           MessageWait(),
           MessageSuccessfully(),
           GetX<HomeController>(
-              builder: (controller) => Visibility(
-                  visible: controller.emptyLogin.value,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black54,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black54,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black26,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 48.h),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Lottie.asset(ImagesPath.wearing,
-                              width: 70.w, height: 70.h),
+            builder: (controller) => Visibility(
+              visible: controller.emptyLogin.value,
+              child: Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.black54,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 48.h),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Lottie.asset(ImagesPath.wearing,
+                          width: 70.w, height: 70.h),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 115.h),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 45.w),
+                        child: Text(
+                          "عزيزي العميل هنالك قيم فارغة الرجاء,ملا البيانات بشكل كامل",
+                          style: TextStyle(
+                            height: 1.5.h,
+                            fontFamily: AppTextStyles.Almarai,
+                            color: AppColors.whiteColor,
+                            fontSize: 16.2.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 115.h),
-                        child: Align(
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 38.h),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: InkWell(
+                        onTap: () {
+                          controller.emptyLogin.value = false;
+                        },
+                        child: Container(
                           alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 45.w),
-                            child: Text(
-                              "عزيزي العميل هنالك قيم فارغة الرجاء,ملا البيانات بشكل كامل",
-                              style: TextStyle(
-                                height: 1.5.h,
-                                fontFamily: AppTextStyles.Almarai,
-                                color: AppColors.whiteColor,
-                                fontSize: 16.2.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
+                          width: 250.w,
+                          height: 30.h,
+                          decoration: BoxDecoration(
+                              color: AppColors.TheMain,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Text(
+                            "إخفاء",
+                            style: TextStyle(
+                              fontFamily: AppTextStyles.Almarai,
+                              color: AppColors.whiteColor,
+                              fontSize: 16.2.sp,
+                              fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 38.h),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: InkWell(
-                              onTap: () {
-                                controller.emptyLogin.value = false;
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 250.w,
-                                height: 30.h,
-                                decoration: BoxDecoration(
-                                    color: AppColors.TheMain,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Text(
-                                  "إخفاء",
-                                  style: TextStyle(
-                                    fontFamily: AppTextStyles.Almarai,
-                                    color: AppColors.whiteColor,
-                                    fontSize: 16.2.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ))
-                    ],
-                  ))),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           GetX<HomeController>(
-              builder: (controller) => Visibility(
-                  visible: controller.checkAccount.value,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black54,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black54,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black26,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 48.h),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Lottie.asset(ImagesPath.error,
-                              width: 70.w, height: 70.h),
+            builder: (controller) => Visibility(
+              visible: controller.checkAccount.value,
+              child: Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.black54,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 48.h),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Lottie.asset(ImagesPath.error,
+                          width: 70.w, height: 70.h),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 115.h),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 45.w),
+                        child: Text(
+                          "عزيزي العميل الاسم مستخدم..قم رجاءًا بتغيير الاسم",
+                          style: TextStyle(
+                            height: 1.5.h,
+                            fontFamily: AppTextStyles.Almarai,
+                            color: AppColors.whiteColor,
+                            fontSize: 16.2.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 115.h),
-                        child: Align(
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 38.h),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: InkWell(
+                        onTap: () {
+                          controller.checkAccount.value = false;
+                        },
+                        child: Container(
                           alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 45.w),
-                            child: Text(
-                              "عزيزي العميل الاسم مستخدم..قم رجاءًا بتغيير الاسم",
-                              style: TextStyle(
-                                height: 1.5.h,
-                                fontFamily: AppTextStyles.Almarai,
-                                color: AppColors.whiteColor,
-                                fontSize: 16.2.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
+                          width: 250.w,
+                          height: 30.h,
+                          decoration: BoxDecoration(
+                              color: AppColors.TheMain,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Text(
+                            "إخفاء",
+                            style: TextStyle(
+                              fontFamily: AppTextStyles.Almarai,
+                              color: AppColors.whiteColor,
+                              fontSize: 16.2.sp,
+                              fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 38.h),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: InkWell(
-                              onTap: () {
-                                controller.checkAccount.value = false;
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 250.w,
-                                height: 30.h,
-                                decoration: BoxDecoration(
-                                    color: AppColors.TheMain,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Text(
-                                  "إخفاء",
-                                  style: TextStyle(
-                                    fontFamily: AppTextStyles.Almarai,
-                                    color: AppColors.whiteColor,
-                                    fontSize: 16.2.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ))
-                    ],
-                  ))),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           GetX<HomeController>(
-              builder: (controller) => Visibility(
-                  visible: controller.errorLogin.value,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black54,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black54,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black26,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 48.h),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Lottie.asset(ImagesPath.error,
-                              width: 70.w, height: 70.h),
+            builder: (controller) => Visibility(
+              visible: controller.errorLogin.value,
+              child: Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.black54,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 48.h),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Lottie.asset(ImagesPath.error,
+                          width: 70.w, height: 70.h),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 115.h),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 45.w),
+                        child: Text(
+                          "هنالك خطا في العملية,,الرجاء التاكد من البيانات والمحاولة لاحقًا",
+                          style: TextStyle(
+                            height: 1.5.h,
+                            fontFamily: AppTextStyles.Almarai,
+                            color: AppColors.whiteColor,
+                            fontSize: 16.2.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 115.h),
-                        child: Align(
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 38.h),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: InkWell(
+                        onTap: () {
+                          controller.errorLogin.value = false;
+                        },
+                        child: Container(
                           alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 45.w),
-                            child: Text(
-                              "هنالك خطا في العملية,,الرجاء التاكد من البيانات والمحاولة لاحقًا",
-                              style: TextStyle(
-                                height: 1.5.h,
-                                fontFamily: AppTextStyles.Almarai,
-                                color: AppColors.whiteColor,
-                                fontSize: 16.2.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
+                          width: 250.w,
+                          height: 30.h,
+                          decoration: BoxDecoration(
+                              color: AppColors.TheMain,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Text(
+                            "إخفاء",
+                            style: TextStyle(
+                              fontFamily: AppTextStyles.Almarai,
+                              color: AppColors.whiteColor,
+                              fontSize: 16.2.sp,
+                              fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 38.h),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: InkWell(
-                              onTap: () {
-                                controller.errorLogin.value = false;
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 250.w,
-                                height: 30.h,
-                                decoration: BoxDecoration(
-                                    color: AppColors.TheMain,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Text(
-                                  "إخفاء",
-                                  style: TextStyle(
-                                    fontFamily: AppTextStyles.Almarai,
-                                    color: AppColors.whiteColor,
-                                    fontSize: 16.2.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ))
-                    ],
-                  ))),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           Terms(),
         ],
       ),

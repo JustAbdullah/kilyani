@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:kilyani_app/views/SearchScreen/search_page.dart';
 import 'package:kilyani_app/views/homeScreen/homeWidgets/AuctionWidget/auction_details.dart';
 import 'package:kilyani_app/views/homeScreen/homeWidgets/AuthWidgets/auth_page.dart';
@@ -16,7 +15,6 @@ import 'package:kilyani_app/views/homeScreen/homeWidgets/view_subtype.dart';
 import 'package:kilyani_app/views/homeScreen/top_rated_product.dart';
 import 'package:kilyani_app/views/messages/message_status.dart';
 
-import '../../controllers/home_controller.dart';
 import '../../core/constant/app_text_styles.dart';
 import '../../core/constant/appcolors.dart';
 import '../../customWidgets/custom_text.dart';

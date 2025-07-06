@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../../controllers/home_controller.dart';
 import '../../../../core/constant/app_text_styles.dart';
 import '../../../../core/constant/appcolors.dart';
-import '../../../../core/constant/images_path.dart';
 
 class InfoAccount extends StatelessWidget {
   const InfoAccount({Key? key}) : super(key: key);

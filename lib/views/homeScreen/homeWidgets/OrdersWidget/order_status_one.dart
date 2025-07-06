@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kilyani_app/controllers/home_controller.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../../../core/constant/app_text_styles.dart';
 import '../../../../core/constant/appcolors.dart';
-import '../../../../core/constant/images_path.dart';
 import '../../../../customWidgets/custom_container.dart';
 import '../../../../customWidgets/custom_text.dart';
 
@@ -654,7 +652,7 @@ class OrdersStausOne extends StatelessWidget {
                 ]),
               ))),
       Padding(
-        padding: EdgeInsets.only(bottom: 40.0.h),
+        padding: EdgeInsets.only(bottom: 0.0.h),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: InkWell(

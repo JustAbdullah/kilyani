@@ -10,7 +10,6 @@ import 'package:kilyani_app/views/homeScreen/homeWidgets/DetilasProductWidget/pr
 import 'package:kilyani_app/views/homeScreen/homeWidgets/DetilasProductWidget/product_more.dart';
 import 'package:kilyani_app/views/homeScreen/homeWidgets/DetilasProductWidget/sizes_product.dart';
 import 'package:kilyani_app/views/homeScreen/homeWidgets/DetilasProductWidget/sizes_product_arrow.dart';
-import 'package:kilyani_app/views/homeScreen/homeWidgets/DetilasProductWidget/totail_price.dart';
 
 import '../../../../core/constant/app_text_styles.dart';
 import '../../../../core/constant/appcolors.dart';

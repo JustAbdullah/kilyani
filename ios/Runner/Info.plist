@@ -55,5 +55,34 @@
 		<string>We need access to your photo library to select images.</string>
 		<key>NSCameraUsageDescription</key>
 		<string>We need access to your camera to take pictures.</string>
+				<!-- استخدام الصور -->
+<key>NSPhotoLibraryUsageDescription</key>
+<string>نحتاج إلى الوصول لمكتبة الصور لاختيار صورة من جهازك</string>
+
+<!-- استخدام الكاميرا -->
+<key>NSCameraUsageDescription</key>
+<string>نحتاج إلى الوصول للكاميرا لالتقاط صورة</string>
+
+<key>NSDocumentsFolderUsageDescription</key>
+<string>لتخزين الفواتير</string>
+<key>NSDownloadsFolderUsageDescription</key>
+<string>لتنزيل الفواتير</string>
+<key>io.flutter.embedded_views_preview</key>
+<true/>
+<!-- الوصول للموقع الجغرافي -->
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>نحتاج إلى موقعك الحالي لتحسين تجربة المستخدم</string>
+<!---->
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+</dict>
+
+<!-- فتح ملفات من الجهاز -->
+<key>LSSupportsOpeningDocumentsInPlace</key>
+<true/>
+<key>UIFileSharingEnabled</key>
+<true/>
 	</dict>
 </plist>

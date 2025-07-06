@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:flutter/services.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:path/path.dart' as path;
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,6 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:kilyani_app/core/data/model/ban.dart';
 
 import '../core/class/class/crud.dart';
+import '../core/data/model/StoreWebview.dart';
 import '../core/data/model/auction.dart';
 import '../core/data/model/auctionUser.dart';
 import '../core/data/model/basket.dart';
@@ -42,12 +44,12 @@ import '../views/BuseinssAccountScreen/home_buseiness.dart';
 import '../views/WelcomeScreen/welcome.dart';
 import '../views/homeScreen/home_screen.dart';
 import '../views/onBoardingScreen/onboarding.dart';
-import 'package:googleapis_auth/googleapis_auth.dart';
 
 class HomeController extends GetxController {
   final crud = Crud();
   AppServices appServices = Get.find();
 //////////////////////////////The Way In Loading..............//////////////////////
+      var showPassword = false.obs;
 
   RxBool theWay = false.obs;
   WhereGoingTheApp() {
@@ -562,6 +564,7 @@ class HomeController extends GetxController {
   RxBool checkIsGetData = false.obs;
   RxInt f = 0.obs;
   Future<void> getDataUserInHome() async {
+    print("GetDataUserInHome");
     // if (appSer
     //vices.sharedPreferences.containsKey('isHaveAccount')) {
     final response = await http.post(
@@ -667,6 +670,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    refreshStatuses();
     ConvertIntoShortTextAddress();
     getDataLastBusinessesDatabase();
     getDataLastAuctionDatabase();
@@ -1182,7 +1186,7 @@ class HomeController extends GetxController {
 
   final Completer<GoogleMapController> controller =
       Completer<GoogleMapController>();
-
+/////////////////////////////////////////////////////////جلب الموقع الطريقة القديمة.....................//////////
   RxString address = "لايوجد عنوان".obs;
   RxBool noLocation = false.obs;
   Future<void> checkIsEnableLocationServices() async {
@@ -1216,7 +1220,7 @@ class HomeController extends GetxController {
     await checkIsEnableLocationServices();
   }
 
-  void ConvertIntoShortTextAddress() async {
+  ConvertIntoShortTextAddress() async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(users!.value.lat, users!.value.log);
     Placemark placeMark = placemarks[0];
@@ -1264,6 +1268,7 @@ class HomeController extends GetxController {
   } /////////////Location UpDate////////////////////////
 
   Future<void> upDateLocation(double log, double lat) async {
+    print("UpDateLocaionStart");
     final response = await http.post(
       Uri.parse(AppLinksApi.upDateLocation),
       headers: <String, String>{
@@ -1275,6 +1280,7 @@ class HomeController extends GetxController {
         'user_id': users!.value.user_id as int
       }),
     );
+    print("UpDateLocaionEnd");
   }
 
   //////////////////////////.............THe Orderssssssssssssssss...................................../////////////
@@ -1353,9 +1359,10 @@ class HomeController extends GetxController {
           if (response.statusCode == 200) {
             var jsonResponse = jsonDecode(response.body);
             if (jsonResponse['status'] == 'success') {
+              //////////
               addMessage("لقد تم إنشاء الطلبية برقم:$order",
                   "لقد انشئت الطلبية بنجاح ويتم الان مراجعتها من طِرف المتجر وسيتم إيفاءك بكافة المعلومات في الوقت المناسب");
-
+/////////......//////
               addWalletHistory(
                   "${DateFormat.MMM().format(DateTime.now()).toString()}-"
                       "${DateFormat.d().format(DateTime.now()).toString()}",
@@ -1363,6 +1370,7 @@ class HomeController extends GetxController {
                   total.toString());
               theNewAmout = users!.value.amount - totalPrice.value;
               upDatAmount(theNewAmout.toString());
+              /////////
               getDataUserInHome();
               waitCreateOrder.value = false;
               bissineIdclear();
@@ -1442,8 +1450,14 @@ class HomeController extends GetxController {
     idBusinessInPage = currentBusiness.value?.business_account_id;
     getRatingBuss(currentBusiness.value?.business_account_id);
     showDetialsBusiness.value = true;
+    fetchWebviews(currentBusiness.value?.business_account_id);
   }
-
+  void viewBusinessDetailsInProdcus(var Idbusiness) {
+    
+    getRatingBuss(Idbusiness);
+    showDetialsBusiness.value = true;
+    fetchWebviews(Idbusiness);
+  }
   clearInDetilasBusiness() {
     averageRatingBuss.value = 0;
     showDetialsBusiness.value = false;
@@ -1795,21 +1809,32 @@ class HomeController extends GetxController {
   }
 
   //////////////////////////////............Package................................///////////////
+  var selectedPackage = Rxn<Package>();
 
   RxBool showThePackage = false.obs;
   final listofPackages = Rx<List<Package>>([]);
 
   Future<void> getDataPackages() async {
-    final response = await http.get(Uri.parse(AppLinksApi.getPackaget));
+    try {
+      final response = await http.get(Uri.parse(AppLinksApi.getPackaget));
 
-    if (response.statusCode == 200) {
-      List<dynamic> PackageJson = json.decode(response.body)['data'];
-      listofPackages.value =
-          PackageJson.map((json) => Package.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load getPackaget');
+      if (response.statusCode == 200) {
+        List<dynamic> packageJson = json.decode(response.body)['data'];
+        listofPackages.value =
+            packageJson.map((json) => Package.fromJson(json)).toList();
+
+        if (listofPackages.value.isNotEmpty) {
+          selectedPackage.value =
+              listofPackages.value.first; // تعيين الباقة الأولى
+        }
+      } else {
+        throw Exception('Failed to load packages');
+      }
+    } catch (e) {
+      print('Error fetching packages: $e');
     }
   }
+
 
   /////////////////////////..................................Auctions...............///////////////
   final listofAuctionUser = Rx<List<AuctionUser>>([]);
@@ -3028,6 +3053,260 @@ class HomeController extends GetxController {
       listofAuctionSearch.value = [];
     } finally {
       isLoadingListAuctionSearch.value = false;
+    }
+  }
+
+  void toggleDetails(String shoppingId) {
+    if (showMoreDetails.value && (idShowMordeDetails.value == shoppingId)) {
+      showMoreDetails.value = false;
+    } else {
+      showMoreDetails.value = true;
+      idShowMordeDetails.value = shoppingId;
+    }
+  }
+
+  ///////////location New..............
+  RxBool isLoadingLocation = false.obs;
+  Rxn<double> latitude = Rxn<double>();
+  Rxn<double> longitude = Rxn<double>();
+/////////////////////Just Get MapSearching...................//////
+
+  // Function to get the current location
+  Future<void> fetchCurrentLocation() async {
+    try {
+      // تحديث حالة التحميل
+      isLoadingLocation.value = true;
+      checkTheLocation.value = true;
+
+      // 1. التحقق من تفعيل خدمة الموقع
+      final isLocationEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!isLocationEnabled) {
+        await _handleLocationServiceDisabled();
+        return;
+      }
+
+      // 2. التحقق من الأذونات
+      final permissionStatus = await _checkAndRequestLocationPermissions();
+      if (permissionStatus != LocationPermission.whileInUse &&
+          permissionStatus != LocationPermission.always) {
+        return;
+      }
+
+      // 3. محاولة الحصول على آخر موقع معروف
+      final lastKnownPosition = await Geolocator.getLastKnownPosition();
+      if (lastKnownPosition != null) {
+        await _usePosition(lastKnownPosition, isLastKnown: true);
+        return;
+      }
+
+      // 4. الحصول على الموقع الحالي مع مهلة محددة
+      await _fetchCurrentPositionWithTimeout();
+    } catch (e) {
+      await _handleLocationError(e);
+    } finally {
+      // إعادة تعيين حالات التحميل
+      isLoadingLocation.value = false;
+      checkTheLocation.value = false;
+    }
+  }
+
+// --- الدوال المساعدة ---
+  Future<bool> ensureLocationPermission() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      permission = await requestLocationPermission();
+    }
+    // أرجع true إذا الإذن ممنوح، false خلاف ذلك
+    return permission == LocationPermission.whileInUse ||
+        permission == LocationPermission.always;
+  }
+
+  Future<LocationPermission> requestLocationPermission() async {
+    return await Geolocator.requestPermission();
+  }
+
+  Future<bool> isLocationServiceEnabled() async {
+    return await Geolocator.isLocationServiceEnabled();
+  }
+
+  Future<void> _handleLocationServiceDisabled() async {
+    isLoadingLocation.value = false;
+    await Get.dialog(
+      AlertDialog(
+        title: const Text("خدمة الموقع معطلة"),
+        content: const Text("يرجى تفعيل خدمة الموقع لاستخدام هذه الميزة"),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text("إلغاء"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Get.back();
+              await Geolocator.openLocationSettings();
+            },
+            child: const Text("فتح الإعدادات"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<LocationPermission> _checkAndRequestLocationPermissions() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      isLoadingLocation.value = false;
+      Get.snackbar(
+        "الإذن مطلوب",
+        "يرجى منح إذن الوصول إلى الموقع من إعدادات التطبيق",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 5),
+      );
+    }
+
+    return permission;
+  }
+
+  Future<void> _usePosition(Position position,
+      {bool isLastKnown = false}) async {
+    latitude.value = position.latitude;
+    longitude.value = position.longitude;
+
+    // 1. أبقِ عملية رفع الموقع كما هي
+    await upDateLocation(position.longitude, position.latitude);
+
+    // 2. جلب بيانات المستخدم (تُحدّث users.value)
+    await getDataUserInHome();
+
+    // 3. بعد تحديث users. استخرج العنوان المختصر من الإحداثيات
+    await ConvertIntoShortTextAddress();
+
+    // 4. أخيرًا حدّث الحالة بأن الموقع جرى التحقق منه
+    isVerificationLocationCompleted.value = true;
+
+    if (isLastKnown) {
+      Get.snackbar(
+        "تم استخدام آخر موقع معروف",
+        "جاري تحديث البيانات بناءً على آخر موقع مسجل",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+      );
+    } else {
+      Get.snackbar(
+        "نجاح",
+        "تم تحديث موقعك الجغرافي بنجاح",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+      );
+    }
+  }
+
+  Future<void> _fetchCurrentPositionWithTimeout() async {
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.bestForNavigation,
+      ).timeout(
+        const Duration(seconds: 25),
+        onTimeout: () => throw TimeoutException(
+            "استغرقت عملية الحصول على الموقع وقتاً طويلاً"),
+      );
+
+      await _usePosition(position);
+    } catch (e) {
+      await _handleLocationError(e);
+    }
+  }
+
+  Future<void> _handleLocationError(dynamic error) async {
+    String errorMessage = "حدث خطأ غير متوقع أثناء الحصول على الموقع";
+
+    if (error is TimeoutException) {
+      errorMessage = "تجاوزت عملية تحديد الموقع المهلة المسموح بها";
+    } else if (error is PlatformException) {
+      switch (error.code) {
+        case 'PERMISSION_DENIED':
+          errorMessage = "تم رفض إذن الوصول إلى الموقع";
+          break;
+        case 'LOCATION_SERVICES_DISABLED':
+          errorMessage = "خدمة الموقع معطلة";
+          break;
+        case 'LOCATION_UPDATE_FAILURE':
+          errorMessage = "فشل تحديث الموقع";
+          break;
+      }
+    }
+
+    Get.snackbar(
+      "خطأ في الموقع",
+      errorMessage,
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 5),
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+
+    // تسجيل الخطأ للتحليل
+    debugPrint("Location Error: $error");
+  }
+
+  /////////
+   var webviews = <StoreWebview>[].obs;
+
+  /// جلب جميع روابط المتجر
+Future<void> fetchWebviews(int bussId) async {
+  try {
+    final String requestUrl =
+        'https://kilyan.arabiagroup.me/kilyani/public/webviews/$bussId';
+    print('Request URL: $requestUrl');
+    
+    final response = await http.get(
+      Uri.parse(requestUrl),
+      headers: {'Accept': 'application/json'},
+    );
+    
+    print('HTTP Status Code: ${response.statusCode}');
+    print('HTTP Response Body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['status'] == 'success') {
+        final data = jsonResponse['data'] as List;
+        try {
+          webviews.value =
+              data.map((e) => StoreWebview.fromJson(e)).toList();
+        } catch (modelError) {
+          print('خطأ في تحليل بيانات الـ StoreWebview: $modelError');
+        }
+      } else {
+      }
+    } else {
+      String errorDetails;
+      try {
+        final parsedError = jsonDecode(response.body);
+        errorDetails = parsedError['message'] ?? response.body;
+      } catch (_) {
+        errorDetails = response.body;
+      }
+     
+    }
+  } catch (e) {
+    print(e);
+    Get.snackbar('خطأ', 'حدث خطأ أثناء جلب البيانات: $e');
+  }
+}
+
+Future<void> refreshStatuses() async {
+    final res = await http.post(Uri.parse(AppLinksApi.refreshstatuses));
+    if (res.statusCode != 200) {
+      throw Exception('Failed to refresh statuses');
     }
   }
 }

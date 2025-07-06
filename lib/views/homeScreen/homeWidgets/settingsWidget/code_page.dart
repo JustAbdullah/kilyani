@@ -13,6 +13,9 @@ class CodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    
     return GetX<HomeController>(
         builder: (controller) => Visibility(
             visible: controller.codeShow.value,
@@ -44,6 +47,10 @@ class CodePage extends StatelessWidget {
                               alignment: Alignment.topRight,
                               child: InkWell(
                                 onTap: () {
+                                  print("//////////////////////////");
+                                  print(  controller.users!.value.code.toString());
+                                                                    print("//////////////////////////");
+
                                   controller.codeShow.value = false;
                                 },
                                 child: Padding(

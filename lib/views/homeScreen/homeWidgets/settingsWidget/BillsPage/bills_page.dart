@@ -9,181 +9,257 @@ import '../../../../../core/constant/app_text_styles.dart';
 import '../../../../../core/constant/appcolors.dart';
 import '../../../../../core/constant/images_path.dart';
 
+
+
+import '../../../../../core/data/model/bills.dart';
+
+
 class BillsPage extends StatelessWidget {
   const BillsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
     return GetX<HomeController>(
-        builder: (controller) => Visibility(
-            visible: controller.showTheBills.value,
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    color: Colors.black38,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    color: Colors.black38,
-                  ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Column(children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: InkWell(
-                                onTap: () {
-                                  controller.showTheBills.value = false;
-                                },
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.only(right: 10.w, top: 5.h),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: 40.w,
-                                    height: 30.h,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.TheMain,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Image.asset(
-                                        ImagesPath.arrow,
-                                        width: 45.w,
-                                        height: 45.h,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              width: 220.w,
-                              height: 35.h,
-                              decoration: BoxDecoration(
-                                  color: AppColors.TheMain,
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: Text(
-                                "الفواتير",
-                                style: TextStyle(
-                                  fontFamily: AppTextStyles.Almarai,
-                                  color: AppColors.whiteColor,
-                                  fontSize: 17.2.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "الفواتير الخاصة بك المتوفرة في قاعدة البيانات",
-                                      style: TextStyle(
-                                        fontFamily: AppTextStyles.Almarai,
-                                        color: AppColors.balckColorTypeFour,
-                                        fontSize: 18.2.sp,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                )),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                height: 500.h,
-                                child: SingleChildScrollView(
-                                  child: Obx(() {
-                                    if (controller.listOfBills.value.isEmpty) {
-                                      return Center(
-                                        child: Lottie.asset(ImagesPath.empty,
-                                            width: 200.w),
-                                      );
-                                    } else {
-                                      return SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 500.h,
-                                        child: ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: controller
-                                                .listOfBills.value.length,
-                                            itemBuilder: (context, index) {
-                                              final bills = controller
-                                                  .listOfBills.value[index];
+      builder: (controller) => Visibility(
+        visible: controller.showTheBills.value,
+        child: Scaffold(
+          body: Container(
+            color: AppColors.whiteColor,
+            child: Column(
+              children: [
+                // Header Section
+                _buildAppBar(controller),
 
-                                              return Padding(
-                                                padding: EdgeInsets.only(
-                                                    bottom: 10.h),
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: 450.h,
-                                                  decoration: BoxDecoration(
-                                                      color: AppColors
-                                                          .whiteColorTypeThree,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              35),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.grey
-                                                              .withOpacity(0.5),
-                                                          spreadRadius: 9,
-                                                          blurRadius: 9,
-                                                          offset: Offset(0,
-                                                              3), // changes position of shadow
-                                                        ),
-                                                      ]),
-                                                  child: PDF().cachedFromUrl(
-                                                    bills.BillsLink,
-                                                    placeholder: (progress) =>
-                                                        Center(
-                                                            child: Text(
-                                                                '$progress %')),
-                                                    errorWidget: (error) =>
-                                                        Center(
-                                                            child: Text(error
-                                                                .toString())),
-                                                  ),
-                                                ),
-                                              );
-                                            }),
-                                      );
-                                    }
-                                  }),
-                                ))
-                          ])))
+                // Content Area
+                Expanded(
+                  child: _buildContent(controller, context),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAppBar(HomeController controller) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.TheMain,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          )
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "الفواتير",
+              style: TextStyle(
+                fontFamily: AppTextStyles.Almarai,
+                color: AppColors.whiteColor,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.close, size: 30.sp, color: AppColors.whiteColor),
+              onPressed: () => controller.showTheBills.value = false,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContent(HomeController controller, BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        children: [
+          // Title and Description
+          _buildHeaderInfo(),
+
+          // Bills List
+          Expanded(
+            child: _buildBillsList(controller, context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeaderInfo() {
+    return Column(
+      children: [
+        SizedBox(height: 20.h),
+        Text(
+          "الفواتير المتاحة",
+          style: TextStyle(
+            fontFamily: AppTextStyles.Almarai,
+            color: AppColors.TheMain,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        Text(
+          "عرض وتحميل الفواتير من قاعدة البيانات",
+          style: TextStyle(
+            fontFamily: AppTextStyles.Almarai,
+            color: AppColors.balckColorTypeFour,
+            fontSize: 16.sp,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 20.h),
+      ],
+    );
+  }
+
+  Widget _buildBillsList(HomeController controller, BuildContext context) {
+    return Obx(() {
+      if (controller.listOfBills.value.isEmpty) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset(
+                ImagesPath.empty,
+                width: 250.w,
+                height: 250.h,
+              ),
+              Text(
+                "لا توجد فواتير متاحة حالياً",
+                style: TextStyle(
+                  fontFamily: AppTextStyles.Almarai,
+                  color: AppColors.balckColorTypeFour,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ],
+          ),
+        );
+      } else {
+        return ListView.separated(
+          physics: BouncingScrollPhysics(),
+          itemCount: controller.listOfBills.value.length,
+          separatorBuilder: (context, index) => SizedBox(height: 15.h),
+          itemBuilder: (context, index) {
+            final bill = controller.listOfBills.value[index];
+            return _buildBillCard(bill, context);
+          },
+        );
+      }
+    });
+  }
+
+  Widget _buildBillCard(TheBills bill, BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+      child: Container(
+        height: 400.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.r),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.whiteColorTypeThree,
+              AppColors.whiteColor,
+            ],
+          ),
+        ),
+        child: Column(
+          children: [
+            // PDF Viewer
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(15.r)),
+                child: PDF().cachedFromUrl(
+                  bill.BillsLink,
+                  placeholder: (progress) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          value: progress / 100,
+                          color: AppColors.TheMain,
+                          strokeWidth: 3,
+                        ),
+                        SizedBox(height: 10.h),
+                        Text(
+                          "جاري التحميل... ${progress.round()}%",
+                          style: TextStyle(
+                            fontFamily: AppTextStyles.Almarai,
+                            color: AppColors.TheMain,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  errorWidget: (error) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.error_outline,
+                            color: AppColors.redColor, size: 40.sp),
+                        SizedBox(height: 10.h),
+                        Text(
+                          "حدث خطأ في التحميل",
+                          style: TextStyle(
+                            fontFamily: AppTextStyles.Almarai,
+                            color: AppColors.redColor,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // Bill Info Footer
+            Container(
+              padding: EdgeInsets.all(12.w),
+              decoration: BoxDecoration(
+                color: AppColors.TheMain.withOpacity(0.1),
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(15.r)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "فاتورة رقم: ${bill.BillsId}",
+                    style: TextStyle(
+                      fontFamily: AppTextStyles.Almarai,
+                      color: AppColors.TheMain,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(Icons.picture_as_pdf,
+                      color: AppColors.TheMain, size: 24.sp),
                 ],
               ),
-            )));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

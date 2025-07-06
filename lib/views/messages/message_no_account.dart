@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:kilyani_app/core/data/model/maintype.dart';
 import 'package:kilyani_app/views/WelcomeScreen/welcome.dart';
-import 'package:kilyani_app/views/accountScreen/sign.dart';
-import 'package:kilyani_app/views/loadingScreen/loading_screen.dart';
+
 import 'package:lottie/lottie.dart';
 import '../../../../controllers/home_controller.dart';
 import '../../../../core/constant/app_text_styles.dart';
@@ -14,6 +12,7 @@ import '../../../../core/constant/images_path.dart';
 class MessageNoAccount extends StatelessWidget {
   const MessageNoAccount({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
     return GetX<HomeController>(

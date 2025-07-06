@@ -28,7 +28,7 @@ class Package {
       packageId: json['package_id'] ?? 0,
       packageName: json['package_name'] ?? 0,
       packageDescription: json['package_description'] ?? 'Default Title',
-      packagePrice: json['package_price'] ?? 'Default Title',
+      packagePrice: json['package_price'] ?? 0.0,
       limitProduct: json['limit_product'] ?? 'Default Title',
       editProduct: json['edit_product'] ?? 'Default Title',
       addAuction: json['add_auction'] ?? 'Default Title',

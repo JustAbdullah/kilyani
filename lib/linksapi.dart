@@ -40,7 +40,7 @@ class AppLinksApi {
   static const getAuctionsUserAdd = "$path/get-auctions-user-add";
 
   static const addImage = "$path/upload-endpoint";
-  static const getPackaget = "$path/get-packagest";
+  static const getPackaget = "$path/get-packages";
   static const addAuction = "$path/add-auctions-user";
   static const checkCode = "$path/check-code";
   static const basketOrder = "$path/get-basket-order";
@@ -73,4 +73,7 @@ class AppLinksApi {
   ////////////////////////
   static const chargeWallet = "$path/wallet-charges";
   static const getAuctionsSearch = "$path/auction-all-with-search";
+ static const refreshstatuses =   "$path/auctions/refresh-statuses";
+
+ 
 }

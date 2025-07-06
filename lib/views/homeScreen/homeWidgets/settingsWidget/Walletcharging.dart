@@ -126,7 +126,7 @@ class WalletCharging extends StatelessWidget {
                                         color: AppColors.TheMain, size: 20.w),
                                     SizedBox(width: 10.w),
                                     Text(
-                                      "اسم البنك: بنكلي",
+                                      "اسم البنك: بنكيلى",
                                       style: TextStyle(
                                         fontFamily: AppTextStyles.Almarai,
                                         color: AppColors.blackColor,
@@ -142,7 +142,7 @@ class WalletCharging extends StatelessWidget {
                                         color: AppColors.TheMain, size: 20.w),
                                     SizedBox(width: 10.w),
                                     Text(
-                                      "رقم الحساب: 1011101110",
+                                      "رقم الحساب: 48863567",
                                       style: TextStyle(
                                         fontFamily: AppTextStyles.Almarai,
                                         color: AppColors.blackColor,
